@@ -3,6 +3,11 @@
 # githuburl
 https://github.com/mustafadev123/in_class_07
 
+## Contributors
+
+- mustafadev123 - Application development
+- rpraneeths - Documentation, testing, and project verification
+
 A stateful Flutter digital pet app.
 
 ## Architecture and trade-off
