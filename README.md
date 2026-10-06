@@ -1,24 +1,111 @@
-# in_class_07
+# In-Class Activity 07 - Digital Pet
 
-# githuburl
+GitHub Repository:
 https://github.com/mustafadev123/in_class_07
 
-A stateful Flutter digital pet app.
+A stateful Flutter digital pet app built for Mobile Application Development
+In-Class Activity 07.
 
-## Architecture and trade-off
+## Contributors
 
-I separated the pet rules from the widget tree in [`lib/pet_model.dart`](lib/pet_model.dart). `PetGameModel` owns the pet's mutable game data and rules for feeding, playing, sleeping, hunger ticks, meter bounds, reset, winning, and losing. `HighMoodWinTracker` owns the timed win condition. The presentation layer in [`lib/main.dart`](lib/main.dart) owns the widgets, buttons, animations, mood labels, `ColorFiltered` tint, and calls to `setState()`.
+- mustafadev123 - Application development
+- rpraneeths - Documentation, testing, and project verification
 
-This boundary makes the game rules easier to test without rendering Flutter widgets, which is why the state-transition tests can verify bounds, reset behavior, and win/loss outcomes directly against the model. The trade-off is that the app has more classes and some state coordination between the screen and the model, so a very small prototype could be shorter with all logic in the widget. I chose the separation because it makes the timer and outcome rules clearer and gives the app a cleaner path for future features such as persistence or additional activities.
+## Project Description
 
-## Evidence and verification
+This project is a stateful Flutter digital pet application.
 
-The required implementation evidence passed for the submitted app:
+The application allows users to interact with a virtual pet through actions
+such as feeding, playing, running, sleeping, pausing, and resetting. The pet's
+happiness, hunger, and energy values change based on user actions and time.
 
-- Core care loop: feed, play/run, sleep, reset, pause/resume, editable pet name, and derived mood feedback are implemented in [`lib/main.dart`](lib/main.dart).
-- Bounded state: happiness, hunger, and energy are clamped to `0..100` in [`lib/pet_model.dart`](lib/pet_model.dart).
-- Timed behavior: hunger changes every 30 seconds, the three-minute high-mood win condition is tracked separately, and timers are canceled on terminal outcomes and screen disposal.
-- Win/loss behavior: the model prevents actions after a terminal outcome, marks a win only after the high-mood timer completes, and marks a loss when hunger is full and happiness is `10` or lower.
-- Visual polish and accessibility: mood tint uses `ColorFiltered` together with a text mood label, animated scale/message feedback supports reduced motion, and semantic labels expose the pet mood and meter values.
-- Automated tests: `flutter test` passed with 8 tests covering feed transitions, meter bounds, hunger overflow, loss, the three-minute win, reset, screen rendering, and feeding feedback.
-- Release artifact: the release APK was built at `build/app/outputs/flutter-apk/app-release.apk`.
+## Architecture and Trade-off
+
+The pet rules are separated from the widget tree in `lib/pet_model.dart`.
+
+`PetGameModel` owns the pet's mutable game data and rules for:
+
+- Feeding
+- Playing
+- Sleeping
+- Hunger changes
+- Meter bounds
+- Reset
+- Winning
+- Losing
+
+`HighMoodWinTracker` owns the timed win condition.
+
+The presentation layer in `lib/main.dart` owns:
+
+- Widgets
+- Buttons
+- Animations
+- Mood labels
+- `ColorFiltered` tint
+- Calls to `setState()`
+
+This separation makes the game rules easier to test without rendering Flutter
+widgets. The state-transition tests can verify bounds, reset behavior, and
+win/loss outcomes directly against the model.
+
+The trade-off is that the application has more classes and requires some
+coordination between the screen and the model. However, this separation makes
+the timer and outcome rules clearer and provides a better structure for future
+features such as persistence or additional activities.
+
+## Core Features
+
+- Editable pet name
+- Happiness meter
+- Hunger meter
+- Energy meter
+- Feed action
+- Play/run action
+- Sleep action
+- Reset action
+- Pause/resume
+- Derived mood feedback
+- Mood tint using `ColorFiltered`
+- Accessible mood and meter labels
+- Hunger timer
+- Three-minute high-mood win condition
+- Hunger/happiness loss condition
+- Meter values bounded from 0 to 100
+
+## Timed Behavior
+
+The application increases hunger every 30 seconds.
+
+The application also tracks the three-minute high-mood win condition.
+
+Timers are canceled when:
+
+- The game reaches a terminal outcome
+- The pet screen is disposed
+
+## Win and Loss Behavior
+
+The application prevents care actions after a terminal outcome.
+
+A win occurs after the required high-mood timer completes.
+
+A loss occurs when hunger reaches 100 and happiness is 10 or lower.
+
+## Visual Polish and Accessibility
+
+The application uses `ColorFiltered` for mood tinting together with a text
+mood label so that color is not the only way to communicate the pet's state.
+
+Animated scale and message feedback are used for interaction feedback.
+
+Reduced-motion behavior is supported.
+
+Semantic labels expose the pet mood and meter values.
+
+## Testing
+
+Run the automated tests with:
+
+```bash
+flutter test
